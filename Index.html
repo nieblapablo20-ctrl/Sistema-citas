@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psicoterapia Pablo Niebla | Sistema de Reservas</title>
+    
+    <!-- Meta tags para WhatsApp -->
+    <meta property="og:title" content="Psicoterapia Pablo Niebla">
+    <meta property="og:description" content="Sistema de reservas para terapia psicológica especializada">
+    <meta property="og:image" content="https://imgur.com/a/0hoiuKq">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://psicoterapia-pablo-niebla.netlify.app">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Psicoterapia Pablo Niebla">
+    
+    <style>
+        /* ====== VARIABLES Y ESTILOS GLOBALES ====== */
+        :root {
+            --primary: #00796b;
+            --primary-dark: #004d40;
+            --primary-light: #e0f2f1;
+            --accent: #ff6b35;
+            --secondary: #2e7d32;
+            --text: #222;
+            --light-bg: #f7f7f7;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-heavy: 0 20px 40px rgba(0,0,0,0.2);
+            --gradient-primary: linear-gradient(135deg, #1a237e 0%, #311b92 100%);
+            --gradient-accent: linear-gradient(45deg, #667eea, #764ba2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ====== HEADER Y NAVEGACIÓN ====== */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .btn-agendar-header {
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-agendar-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+            background: #ff5722;
+        }
+        
+        /* ====== CONTENEDOR PRINCIPAL ====== */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ====== SECCIÓN INFORMACIÓN UNIFICADA ====== */
+        .info-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow-heavy);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-accent);
+        }
+        
+        .info-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .welcome-title {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        /* Estilos del Acordeón */
+        .accordion {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            background: var(--white);
+        }
+        
+        .accordion-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .accordion-header::after {
+            content: "▼";
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+        
+        .accordion-header.active::after {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            display: none;
+            padding: 1.5rem;
+            background: var(--light-bg);
+        }
+        
+        .accordion-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ====== SECCIÓN AGENDAMIENTO ====== */
+        .booking-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow-heavy);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .booking-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-accent);
+        }
+        
+        .booking-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .booking-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .booking-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff9800, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #ff4081;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        /* ====== SISTEMA DE FILTROS Y HORARIOS ====== */
+        .filtros-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .filtro-tipo {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filtro-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px;
+            background: #e9ecef;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .filtro-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .filtro-btn:hover:not(.active) {
+            background: #dee2e6;
+            transform: translateY(-2px);
+        }
+        
+        .filtro-input {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .filtro-input.active {
+            display: block;
+        }
+        
+        #horarios-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        /* ====== HORARIOS DISPONIBLES ====== */
+        .horario-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .horario-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+        
+        .horario-item.high-demand {
+            border-left: 5px solid #ff4081;
+            background: linear-gradient(to right, #fff5f7, white);
+        }
+        
+        .horario-item.medium-demand {
+            border-left: 5px solid #ffa726;
+            background: linear-gradient(to right, #fff3e0, white);
+        }
+        
+        .horario-item.low-demand {
+            border-left: 5px solid #4CAF50;
+            background: linear-gradient(to right, #e8f5e8, white);
+        }
+        
+        .horario-item.high-demand::before {
+            content: '🔥';
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .horario-info {
+            flex: 1;
+        }
+        
+        .fecha {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .hora {
+            color: #666;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .hora.premium {
+            color: #ff4081;
+            font-weight: bold;
+        }
+        
+        .demanda-tag {
+            display: inline-block;
+            background: #ff4081;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        .popular-tag {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+        
+        .reservar-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        .reservar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .reservar-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* ====== FORMULARIOS ====== */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        input[readonly] {
+            background: #f0f0f0;
+            color: #666;
+        }
+        
+        select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2366' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* ====== MENSAJES DE ESTADO ====== */
+        .status-message {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            display: block;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            display: block;
+        }
+        
+        /* ====== BOTONES SECUNDARIOS ====== */
+        .btn-secundario {
+            background-color: #e0e0e0;
+            color: #333;
+            border: 1px solid #bbb;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            width: auto;
+            display: inline-block;
+        }
+        
+        .btn-secundario:hover {
+            background-color: #d5d5d5;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* ====== ESTILOS ESPECÍFICOS DEL CONTENIDO ====== */
+        .terapia-info-card {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .terapia-info-card .precio {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff9800;
+            margin: 10px 0;
+        }
+        
+        .location-info {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+        
+        .location-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: background 0.3s;
+        }
+        
+        .location-link:hover {
+            background: var(--primary-dark);
+        }
+        
+        .availability-info {
+            background: linear-gradient(45deg, #fff8e1, #ffecb3);
+            border: 2px solid #ffd54f;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #5d4037;
+        }
+        
+        .availability-info i {
+            color: #ff9800;
+            margin-right: 10px;
+        }
+        
+        .terapia-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .terapia-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .terapia-select-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .terapia-select-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+        }
+        
+        .reserva-info {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .reserva-info.adulto {
+            background: #e8f5e9;
+            border-left-color: #4CAF50;
+        }
+        
+        .reserva-info.adolescente {
+            background: #e3f2fd;
+            border-left-color: #2196F3;
+        }
+        
+        .reserva-info.pareja {
+            background: #f3e5f5;
+            border-left-color: #9C27B0;
+        }
+        
+        .reserva-info.familia {
+            background: #fff3e0;
+            border-left-color: #FF9800;
+        }
+        
+        .reserva-info-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reserva-info-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .reserva-info-list li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .precio-destacado {
+            color: #ff9800;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .info-section, .booking-section {
+                padding: 1rem;
+            }
+            
+            .accordion-header {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.5rem;
+            }
+            
+            .booking-title {
+                font-size: 1.5rem;
+            }
+            
+            .filtro-btn {
+                min-width: 100px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* ====== SCROLLBAR ====== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+        
+        /* ====== DÍAS SEMANA ====== */
+        .dias-semana {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .dia-btn {
+            padding: 12px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .dia-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .dia-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .dia-btn .dia-nombre {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .dia-btn .dia-fecha {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .fecha-grupo {
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .fecha-grupo-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .fecha-grupo-contenido {
+            padding: 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .fecha-grupo-contenido.expanded {
+            max-height: 1000px;
+        }
+        
+        .contador-horarios {
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        
+        .telefono-info {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            opacity: 0.8;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        
+        /* ====== ESTILOS PARA HORARIOS DE SÁBADO POPULAR ====== */
+        .horario-item.high-demand-sabado {
+            border-left: 5px solid #ff9800;
+            background: linear-gradient(to right, #fff3e0, white);
+        }
+        
+        .horario-item.high-demand-sabado::before {
+            content: '⭐';
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #ff9800;
+        }
+        
+        .horario-pasado {
+            opacity: 0.6;
+            filter: grayscale(70%);
+            border-color: #ccc !important;
+            background: linear-gradient(to right, #f5f5f5, #f0f0f0) !important;
+        }
+        
+        .horario-pasado .hora {
+            color: #888 !important;
+            text-decoration: line-through;
+        }
+        
+        .horario-pasado .reservar-btn {
+            background: #ddd !important;
+            color: #888 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        /* ====== ESTILOS PARA BOTONES DE DÍAS DESACTIVADOS ====== */
+        .dia-btn.disabled {
+            opacity: 0.4 !important;
+            cursor: not-allowed !important;
+            background: #e0e0e0 !important;
+            color: #888 !important;
+            border: 2px solid #ccc !important;
+        }
+        
+        .dia-btn.disabled:hover {
+            transform: none !important;
+            border-color: #ccc !important;
+        }
+        
+        .horario-ocupado {
+            opacity: 0.6;
+            background: linear-gradient(to right, #f8d7da, #f5c6cb) !important;
+            border-color: #dc3545 !important;
+        }
+        
+        .horario-ocupado .hora {
+            color: #721c24 !important;
+            text-decoration: line-through;
+        }
+        
+        .horario-ocupado .reservar-btn {
+            background: #6c757d !important;
+            cursor: not-allowed !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Principal -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span>Psicoterapeuta TCC</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#info">Información</a>
+                <a href="#ubicacion">Ubicación</a>
+                <button class="btn-agendar-header" onclick="scrollToBooking()">
+                    📅 Agendar Cita
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <div class="content">
+            <!-- Columna Izquierda: Información UNIFICADA -->
+            <div class="info-section">
+                <h1 class="welcome-title">Bienvenidos a Psicoterapia</h1>
+                
+                <!-- 📋 Información y Precios UNIFICADOS -->
+                <div class="accordion" id="info">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        📋 Información y Precios de Terapias
+                    </div>
+                    <div class="accordion-content">
+                        <p>Gracias por su interés en mis servicios. Soy <strong>Pablo Niebla</strong>, psicoterapeuta cognitivo-conductual con experiencia en adolescentes, adultos y parejas.</p>
+                        <p style="margin: 1rem 0;">Esta terapia no solo proporciona alivio a corto plazo, sino que también ayuda a desarrollar habilidades para enfrentar y manejar estos problemas a largo plazo, mejorando tu bienestar emocional y equilibrio en la vida.</p>
+
+                        <div class="form-group">
+                            <label class="form-label">Selecciona el tipo de terapia para ver información y precios:</label>
+                            <select id="infoSelect" onchange="sincronizarTerapia('infoSelect')">
+                                <option value="">-- Seleccione --</option>
+                                <option value="adolescente">Terapia para adolescentes</option>
+                                <option value="adulto">Terapia individual para adultos</option>
+                                <option value="pareja">Terapia de pareja</option>
+                                <option value="familiar">Terapia familiar</option>
+                            </select>
+                        </div>
+                        
+                        <div id="infoDetallada" style="margin-top:1rem;"></div>
+                    </div>
+                </div>
+
+                <!-- 📍 Ubicación -->
+                <div class="accordion" id="ubicacion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        📍 Ubicación del Consultorio
+                    </div>
+                    <div class="accordion-content">
+                        <div class="location-info">
+                            <p><strong>📍 Av. Manuel J. Clouthier #4727, Col. Flores Magón</strong></p>
+                            <a href="https://maps.app.goo.gl/JymtCS5M4tiKYB8y9" 
+                               target="_blank" 
+                               class="location-link">
+                                📍 Ver en Google Maps
+                            </a>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <p><strong>✅ Atención presencial y en línea</strong></p>
+                            <p>Puedes elegir la modalidad que prefieras al solicitar tu cita.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Columna Derecha: Sistema de Reservas -->
+            <div class="booking-section" id="booking-section">
+                <div class="booking-header">
+                    <h1 class="booking-title"><i class="fas fa-calendar-check"></i> Sistema de Reservas</h1>
+                    <p class="subtitle">Reserva tu sesión de Terapia Psicológica</p>
+                    <div class="badge">
+                        <i class="fas fa-bolt"></i> Horario de citas disponibles
+                    </div>
+                    
+                    <!-- Información de horarios integrada aquí -->
+                    <div style="margin-top: 15px; background: #e3f2fd; padding: 15px; border-radius: 10px; border-left: 4px solid #2196F3;">
+                        <p style="margin-bottom: 10px; font-weight: bold;">
+                            <i class="fas fa-clock"></i> Horarios de atención:
+                        </p>
+                        <p><strong>Lunes a viernes:</strong> 12:00 pm – 7:00 pm</p>
+                        <p><strong>Sábados:</strong> 10:00 am – 3:00 pm</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                            <i class="fas fa-info-circle"></i> Las sesiones inician cada hora
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="availability-info">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="demanda-text">Mostrando horarios</span>
+                </div>
+                
+                <div class="filtros-container">
+                    <div class="filtro-tipo">
+                        <button class="filtro-btn active" data-tipo="semana-actual">
+                            <i class="fas fa-calendar-week"></i> Esta semana
+                        </button>
+                        <button class="filtro-btn" data-tipo="semana-siguiente">
+                            <i class="fas fa-calendar-alt"></i> Próxima semana
+                        </button>
+                    </div>
+                    
+                    <div class="filtro-input active" id="filtro-semana-actual">
+                        <p style="margin-bottom: 15px; color: #666;">Selecciona un día de esta semana:</p>
+                        <div id="dias-semana-actual" class="dias-semana"></div>
+                    </div>
+                    
+                    <div class="filtro-input" id="filtro-semana-siguiente">
+                        <p style="margin-bottom: 15px; color: #666;">Selecciona un día de la próxima semana:</p>
+                        <div id="dias-semana-siguiente" class="dias-semana"></div>
+                    </div>
+                </div>
+                
+                <div id="horarios-list">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Cargando horarios exclusivos...</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Solo mostramos los horarios más solicitados</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <p style="color: #666; margin-bottom: 10px;">
+                        <i class="fas fa-chart-line"></i> Mostrando 
+                        <span id="contador-horarios" style="font-weight: bold; color: #667eea;">0</span> 
+                        horarios disponibles
+                    </p>
+                    <button id="refresh-btn" class="submit-btn" style="background: linear-gradient(45deg, #2196F3, #1976D2); margin-top: 10px;">
+                        <i class="fas fa-sync-alt"></i> Actualizar Disponibilidad
+                    </button>
+                </div>
+                
+                <!-- Formulario de Reserva -->
+                <form id="reserva-form" style="margin-top: 30px;">
+                    <div class="terapia-section">
+                        <h3><i class="fas fa-edit"></i> Formulario de Reserva</h3>
+                        
+                        <div class="form-group">
+                            <label for="nombre">
+                                <i class="fas fa-user"></i> Nombre completo:
+                            </label>
+                            <input type="text" id="nombre" name="nombre" 
+                                   placeholder="Ingresa tu nombre y apellido" 
+                                   required
+                                   minlength="5">
+                            <div class="telefono-info">
+                                <i class="fas fa-info-circle"></i> Ejemplo: Juan Pérez González
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">
+                                <i class="fas fa-phone"></i> Teléfono:
+                            </label>
+                            <input type="tel" id="telefono" name="telefono" 
+                                   placeholder="Ingresa tu número de 10 dígitos" 
+                                   required
+                                   pattern="[0-9]{10}"
+                                   maxlength="10"
+                                   inputmode="numeric">
+                            <div class="telefono-info">
+                                <i class="fas fa-info-circle"></i> Ejemplo: 6691234567 (10 dígitos sin espacios)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fecha-seleccionada">
+                                <i class="fas fa-calendar"></i> Fecha seleccionada:
+                            </label>
+                            <input type="text" id="fecha-seleccionada" readonly 
+                                   placeholder="Selecciona un horario de la lista">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hora-seleccionada">
+                                <i class="fas fa-clock"></i> Hora seleccionada:
+                            </label>
+                            <input type="text" id="hora-seleccionada" readonly 
+                                   placeholder="Selecciona un horario de la lista">
+                        </div>
+                        
+                        <h3><i class="fas fa-heart"></i> Selecciona el tipo de terapia:</h3>
+                        <div class="terapia-select-container">
+                            <select id="tipo-terapia-select" name="tipo-terapia" class="select-terapia" onchange="sincronizarTerapia('tipo-terapia-select')">
+                                <option value="adulto">Terapia Individual (Adulto) </option>
+                                <option value="adolescente">Terapia Adolescente - </option>
+                                <option value="pareja">Terapia de Pareja</option>
+                                <option value="familiar">Terapia Familiar </option>
+                            </select>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        
+                        <div id="info-reserva" class="reserva-info adulto">
+                            <div class="reserva-info-title">
+                                <i class="fas fa-info-circle"></i> Detalles de tu reserva:
+                            </div>
+                            <ul class="reserva-info-list" id="lista-info">
+                                <li>Duración: <strong>1 hora</strong></li>
+                                <li>Precio: <span class="precio-destacado">$500 MXN</span></li>
+                                <li>Para: <strong>Mayores de 18 años</strong></li>
+                                <li>Tipo: <strong>Terapia Individual (Adulto)</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="tipo-terapia" name="tipo-terapia" value="adulto">
+                    <input type="hidden" id="fecha" name="fecha">
+                    <input type="hidden" id="hora" name="hora">
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                        <i class="fas fa-check-circle"></i> Confirmar Reserva
+                    </button>
+                    
+                    <p style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
+                        <i class="fas fa-lock"></i> Tu reserva se confirmará inmediatamente
+                    </p>
+                </form>
+                
+                <div id="status-message" class="status-message"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-copyright"></i> 2025 Sistema de Reservas Pablo Niebla. Todos los derechos reservados.</p>
+            <p style="font-size: 0.9rem; margin-top: 15px;">
+                <i class="fas fa-sync"></i> Última actualización: 
+                <span id="last-update" style="font-weight: bold;">--:--:--</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // ==================== CONFIGURACIÓN ====================
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQJOFacRbutNumAn4rp0ld25R0sZ5WbPDEa5SfmOosPNqmBnD8Isy9CR2dEdQSj_w8wg/exec";
+        
+        // Variables globales
+        let horariosDisponibles = [];
+        let horariosFiltrados = [];
+        let horarioSeleccionado = null;
+        let filtroActivo = 'semana-actual';
+        let fechaFiltro = '';
+        let tipoTerapiaSeleccionada = 'adulto';
+        let fechaExpandidas = new Set();
+        
+        // Configuración de tipos de terapia
+        const tiposTerapia = {
+            adolescente: {
+                nombre: 'Terapia Adolescente',
+                precio: 400,
+                duracion: '1 hora',
+                edad: 'De 13 a 17 años',
+                descripcion: 'Enfoque amigable y adaptado a su edad. Trabajamos ansiedad escolar, baja autoestima, conflictos con padres, aislamiento social, uso de pantallas, comportamientos de riesgo, etc. Buscamos fortalecer sus habilidades emocionales y sociales.',
+                colorClase: 'adolescente',
+                icono: 'fas fa-user-graduate',
+                displayName: 'Terapia para adolescentes',
+                infoCompleta: `📌 <strong>Terapia para Adolescentes</strong><br><br>
+                • <strong>Enfoque:</strong> Apoyo emocional, habilidades sociales, manejo de emociones<br>
+                • <strong>Duración:</strong> 1 hora<br>
+                • <strong>Precio:</strong> $400 MXN por sesión<br>
+                • <strong>Para:</strong> Adolescentes de 13 a 17 años<br><br>
+                <em>Enfoque amigable y adaptado a su edad. Trabajamos ansiedad escolar, baja autoestima, conflictos con padres, aislamiento social, uso de pantallas, comportamientos de riesgo, etc.</em>`
+            },
+            adulto: {
+                nombre: 'Terapia Individual (Adulto)',
+                precio: 500,
+                duracion: '1 hora',
+                edad: 'Mayores de 18 años',
+                descripcion: 'Enfoque cognitivo-conductual para manejar ansiedad, depresión, estrés, duelo, cambios de vida, autoestima, entre otros. Desarrollamos habilidades para enfrentar situaciones difíciles y mejorar tu bienestar emocional.',
+                colorClase: 'adulto',
+                icono: 'fas fa-user',
+                displayName: 'Terapia individual para adultos',
+                infoCompleta: `📌 <strong>Terapia Individual (Adulto)</strong><br><br>
+                • <strong>Enfoque:</strong> Trabajo personal desde la primera sesión<br>
+                • <strong>Duración:</strong> 1 hora<br>
+                • <strong>Precio:</strong> $500 MXN por sesión<br>
+                • <strong>Para:</strong> Mayores de 18 años<br><br>
+                <em>Enfoque cognitivo-conductual para manejar ansiedad, depresión, estrés, duelo, cambios de vida, autoestima, entre otros. Desarrollamos habilidades para enfrentar situaciones difíciles.</em>`
+            },
+            pareja: {
+                nombre: 'Terapia de Pareja',
+                precio: 700,
+                duracion: '1:15 a 1:30 hrs',
+                edad: 'Parejas',
+                descripcion: 'Atendemos problemas de comunicación, crisis, infidelidad, celos, falta de intimidad o decisiones importantes. Buscamos mejorar la conexión y resolver conflictos de forma saludable.',
+                colorClase: 'pareja',
+                icono: 'fas fa-heart',
+                displayName: 'Terapia de pareja',
+                infoCompleta: `📌 <strong>Terapia de Pareja</strong><br><br>
+                • <strong>Enfoque:</strong> Comunicación, resolución de conflictos, vínculo<br>
+                • <strong>Duración:</strong> 1:15 a 1:30 hrs<br>
+                • <strong>Precio:</strong> $700 MXN por sesión<br>
+                • <strong>Para:</strong> Parejas<br><br>
+                <em>Atendemos problemas de comunicación, crisis, infidelidad, celos, falta de intimidad o decisiones importantes. Buscamos mejorar la conexión y resolver conflictos de forma saludable.</em>`
+            },
+            familiar: {
+                nombre: 'Terapia Familiar',
+                precio: 800,
+                duracion: '1:30 hrs',
+                edad: 'Toda la familia',
+                descripcion: 'Trabajamos en la comunicación, límites, roles parentales, conflictos entre hermanos, adolescentes rebeldes, o efectos del divorcio. Mejoramos la dinámica familiar completa.',
+                colorClase: 'familia',
+                icono: 'fas fa-home',
+                displayName: 'Terapia familiar',
+                infoCompleta: `📌 <strong>Terapia Familiar</strong><br><br>
+                • <strong>Enfoque:</strong> Dinámica familiar, roles, comunicación<br>
+                • <strong>Duración:</strong> 1:30 hrs<br>
+                • <strong>Precio:</strong> $800 MXN por sesión<br>
+                • <strong>Para:</strong> Toda la familia<br><br>
+                <em>Trabajamos en la comunicación, límites, roles parentales, conflictos entre hermanos, adolescentes rebeldes, o efectos del divorcio. Mejoramos la dinámica familiar completa.</em>`
+            }
+        };
+        
+        // Elementos DOM
+        const elementos = {
+            horariosList: document.getElementById('horarios-list'),
+            fechaSeleccionada: document.getElementById('fecha-seleccionada'),
+            horaSeleccionada: document.getElementById('hora-seleccionada'),
+            fechaInput: document.getElementById('fecha'),
+            horaInput: document.getElementById('hora'),
+            submitBtn: document.getElementById('submit-btn'),
+            refreshBtn: document.getElementById('refresh-btn'),
+            statusMessage: document.getElementById('status-message'),
+            lastUpdate: document.getElementById('last-update'),
+            reservaForm: document.getElementById('reserva-form'),
+            contadorHorarios: document.getElementById('contador-horarios'),
+            filtroBtns: document.querySelectorAll('.filtro-btn'),
+            filtroInputs: document.querySelectorAll('.filtro-input'),
+            demandaText: document.getElementById('demanda-text'),
+            telefonoInput: document.getElementById('telefono'),
+            tipoTerapiaInput: document.getElementById('tipo-terapia'),
+            tipoTerapiaSelect: document.getElementById('tipo-terapia-select'),
+            infoReserva: document.getElementById('info-reserva'),
+            listaInfo: document.getElementById('lista-info'),
+            infoSelect: document.getElementById('infoSelect'),
+            infoDetallada: document.getElementById('infoDetallada')
+        };
+        
+        // Nombres en español
+        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        
+        // ==================== FUNCIONES DE SINCRONIZACIÓN ====================
+        
+        function sincronizarTerapia(origen) {
+            let valorSeleccionado;
+            
+            switch(origen) {
+                case 'infoSelect':
+                    valorSeleccionado = elementos.infoSelect.value;
+                    break;
+                case 'tipo-terapia-select':
+                    valorSeleccionado = elementos.tipoTerapiaSelect.value;
+                    break;
+                default:
+                    return;
+            }
+            
+            if (!valorSeleccionado) return;
+            
+            const mapaValores = {
+                'adolescente': 'adolescente',
+                'adulto': 'adulto', 
+                'pareja': 'pareja',
+                'familiar': 'familiar'
+            };
+            
+            const valorMapeado = mapaValores[valorSeleccionado] || valorSeleccionado;
+            
+            elementos.infoSelect.value = valorSeleccionado;
+            elementos.tipoTerapiaSelect.value = valorMapeado;
+            
+            tipoTerapiaSeleccionada = valorMapeado;
+            elementos.tipoTerapiaInput.value = tipoTerapiaSeleccionada;
+            
+            actualizarInfoTerapia(tipoTerapiaSeleccionada);
+            actualizarInfoReserva(tipoTerapiaSeleccionada);
+        }
+        
+        function actualizarInfoTerapia(tipo) {
+            const terapia = tiposTerapia[tipo];
+            elementos.infoDetallada.innerHTML = `
+                <div class="terapia-info-card">
+                    ${terapia.infoCompleta}
+                </div>
+            `;
+        }
+        
+        function actualizarInfoReserva(tipo) {
+            const terapia = tiposTerapia[tipo];
+            
+            elementos.listaInfo.innerHTML = `
+                <li>Duración: <strong>${terapia.duracion}</strong></li>
+                <li>Precio: <span class="precio-destacado">$${terapia.precio} MXN</span></li>
+                <li>Para: <strong>${terapia.edad}</strong></li>
+                <li>Tipo: <strong>${terapia.nombre}</strong></li>
+            `;
+            
+            elementos.infoReserva.className = `reserva-info ${terapia.colorClase}`;
+        }
+        
+        // ==================== FUNCIONES DEL ACORDEÓN INFORMATIVO ====================
+        
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            header.classList.toggle("active");
+            content.classList.toggle("active");
+        }
+        
+        // ==================== FUNCIONES DEL SISTEMA DE RESERVAS ====================
+        
+        function formatearFechaParaMostrar(fechaStr) {
+            const fecha = new Date(fechaStr + 'T12:00:00');
+            const diaSemana = diasSemana[fecha.getDay()];
+            const dia = fecha.getDate();
+            const mes = meses[fecha.getMonth()];
+            return `${diaSemana} ${dia} de ${mes}`;
+        }
+        
+        function obtenerFechaCorta(fechaStr) {
+            const fecha = new Date(fechaStr + 'T12:00:00');
+            const diaNombre = diasSemana[fecha.getDay()].substring(0, 3);
+            const mesNombre = meses[fecha.getMonth()].substring(0, 3);
+            return `${diaNombre} ${fecha.getDate()} ${mesNombre}`;
+        }
+        
+        function obtenerDiaSemana(fechaStr) {
+            const fecha = new Date(fechaStr + 'T12:00:00');
+            return diasSemana[fecha.getDay()];
+        }
+        
+        function generarDiasSemana(semanaOffset = 0) {
+            const ahora = new Date();
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            
+            const diaActual = hoy.getDay();
+            const horaActual = ahora.getHours();
+            const dias = [];
+            
+            if (semanaOffset === 0) {
+                let fechaInicio = new Date(hoy);
+                
+                if (diaActual >= 1 && diaActual <= 5 && horaActual >= 19) {
+                    fechaInicio.setDate(hoy.getDate() + 1);
+                }
+                
+                if (fechaInicio.getDay() === 0) {
+                    fechaInicio.setDate(fechaInicio.getDate() + 1);
+                }
+                
+                let fechaActual = new Date(fechaInicio);
+                let diasGenerados = 0;
+                const maxDias = 6;
+                
+                while (diasGenerados < maxDias && fechaActual.getDay() !== 0) {
+                    const diaSemana = fechaActual.getDay();
+                    
+                    if (diaSemana >= 1 && diaSemana <= 6) {
+                        const fechaStr = fechaActual.toISOString().split('T')[0];
+                        const diaNombre = diasSemana[diaSemana];
+                        
+                        dias.push({
+                            fecha: fechaStr,
+                            nombre: diaNombre,
+                            display: `${diaNombre} ${fechaActual.getDate()} ${meses[fechaActual.getMonth()].substring(0, 3)}`,
+                            short: `${diaNombre.substring(0, 3)} ${fechaActual.getDate()}`,
+                            diaNumero: fechaActual.getDate(),
+                            mesNombre: meses[fechaActual.getMonth()].substring(0, 3),
+                            diaSemana: diaSemana,
+                            esPasado: false
+                        });
+                        diasGenerados++;
+                    }
+                    fechaActual.setDate(fechaActual.getDate() + 1);
+                }
+            } else {
+                let fechaInicio = new Date(hoy);
+                let diasHastaLunes = (1 - diaActual + 7) % 7;
+                
+                if (diaActual === 1 && horaActual < 19) {
+                    diasHastaLunes = 7;
+                } else if (diasHastaLunes === 0) {
+                    diasHastaLunes = 7;
+                }
+                
+                fechaInicio.setDate(hoy.getDate() + diasHastaLunes);
+                
+                for (let i = 0; i < 6; i++) {
+                    const fecha = new Date(fechaInicio);
+                    fecha.setDate(fechaInicio.getDate() + i);
+                    
+                    const diaSemana = fecha.getDay();
+                    
+                    if (diaSemana >= 1 && diaSemana <= 6) {
+                        const fechaStr = fecha.toISOString().split('T')[0];
+                        const diaNombre = diasSemana[diaSemana];
+                        
+                        dias.push({
+                            fecha: fechaStr,
+                            nombre: diaNombre,
+                            display: `${diaNombre} ${fecha.getDate()} ${meses[fecha.getMonth()].substring(0, 3)}`,
+                            short: `${diaNombre.substring(0, 3)} ${fecha.getDate()}`,
+                            diaNumero: fecha.getDate(),
+                            mesNombre: meses[fecha.getMonth()].substring(0, 3),
+                            diaSemana: diaSemana,
+                            esPasado: false
+                        });
+                    }
+                }
+            }
+            
+            return dias;
+        }
+        
+        function seleccionarHorarioPorId(horarioId) {
+            try {
+                const [fecha, hora] = horarioId.split('_');
+                const horaFormateada = hora.slice(0,2) + ':' + hora.slice(2);
+                
+                const horarioEncontrado = horariosDisponibles.find(h => 
+                    h.fecha === fecha && h.hora === horaFormateada
+                );
+                
+                if (!horarioEncontrado) {
+                    mostrarError('❌ Este horario ya no está disponible. Por favor, selecciona otro.', 'error');
+                    return;
+                }
+                
+                horarioSeleccionado = horarioEncontrado;
+                
+                elementos.fechaSeleccionada.value = formatearFechaParaMostrar(horarioEncontrado.fecha);
+                elementos.horaSeleccionada.value = horarioEncontrado.hora;
+                elementos.fechaInput.value = horarioEncontrado.fecha;
+                elementos.horaInput.value = horarioEncontrado.hora;
+                
+                elementos.submitBtn.disabled = false;
+                mostrarMensaje('✅ Horario seleccionado. Completa tus datos para confirmar la reserva.', 'success');
+                
+                elementos.reservaForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+            } catch (error) {
+                console.error('❌ Error en seleccionarHorarioPorId:', error);
+                mostrarError('Error al seleccionar horario. Por favor, intenta nuevamente.');
+            }
+        }
+        
+        function mostrarDiasFiltro() {
+            const diasActual = generarDiasSemana(0);
+            const contenedorActual = document.getElementById('dias-semana-actual');
+            
+            const diasSiguiente = generarDiasSemana(1);
+            const contenedorSiguiente = document.getElementById('dias-semana-siguiente');
+            
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            
+            if (contenedorActual) {
+                contenedorActual.innerHTML = '';
+                
+                if (diasActual.length === 0) {
+                    contenedorActual.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                            <i class="fas fa-calendar-times"></i><br>
+                            No hay días disponibles<br>en esta semana
+                        </div>
+                    `;
+                } else {
+                    diasActual.forEach(dia => {
+                        if (dia.nombre !== 'Domingo') {
+                            const [year, month, day] = dia.fecha.split('-');
+                            const fechaDia = new Date(year, month - 1, day);
+                            const esPasado = fechaDia < hoy;
+                            
+                            const btn = crearBotonDia(dia, esPasado);
+                            contenedorActual.appendChild(btn);
+                        }
+                    });
+                }
+            }
+            
+            if (contenedorSiguiente) {
+                contenedorSiguiente.innerHTML = '';
+                
+                if (diasSiguiente.length === 0) {
+                    contenedorSiguiente.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #666; font-style: italic;">
+                            <i class="fas fa-calendar-times"></i><br>
+                            No hay días disponibles<br>en la próxima semana
+                        </div>
+                    `;
+                } else {
+                    diasSiguiente.forEach(dia => {
+                        if (dia.nombre !== 'Domingo') {
+                            const [year, month, day] = dia.fecha.split('-');
+                            const fechaDia = new Date(year, month - 1, day);
+                            const esPasado = fechaDia < hoy;
+                            
+                            const btn = crearBotonDia(dia, esPasado);
+                            contenedorSiguiente.appendChild(btn);
+                        }
+                    });
+                }
+            }
+            
+            if (contenedorActual && contenedorActual.children.length > 0) {
+                const primerBotonActual = contenedorActual.querySelector('.dia-btn:not(.disabled)');
+                if (primerBotonActual) {
+                    primerBotonActual.classList.add('active');
+                }
+            }
+        }
+        
+        function crearBotonDia(dia, esPasado = false) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'dia-btn';
+            btn.dataset.fecha = dia.fecha;
+            
+            if (esPasado) {
+                btn.classList.add('disabled');
+                btn.style.opacity = '0.4';
+                btn.style.cursor = 'not-allowed';
+                btn.style.background = '#e0e0e0';
+                btn.style.color = '#888';
+                btn.style.border = '2px solid #ccc';
+                btn.onclick = null;
+                btn.title = 'Día pasado - No disponible';
+            } else {
+                btn.onclick = () => filtrarPorDia(dia.fecha);
+            }
+            
+            btn.innerHTML = `
+                <div class="dia-nombre">${dia.nombre.substring(0, 3)}</div>
+                <div class="dia-fecha">${dia.diaNumero}</div>
+            `;
+            
+            return btn;
+        }
+        
+        function filtrarPorDia(fecha) {
+            fechaFiltro = fecha;
+            filtroActivo = 'dia-especifico';
+            
+            document.querySelectorAll('.dia-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.fecha === fecha) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            aplicarFiltros();
+            
+            setTimeout(() => {
+                const horariosList = document.getElementById('horarios-list');
+                if (horariosList) {
+                    horariosList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+        
+        function cambiarFiltro(tipo) {
+            elementos.filtroBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tipo === tipo) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            elementos.filtroInputs.forEach(input => {
+                input.classList.remove('active');
+                if (input.id === `filtro-${tipo}`) {
+                    input.classList.add('active');
+                }
+            });
+            
+            filtroActivo = tipo;
+            
+            if (tipo !== 'dia-especifico') {
+                fechaFiltro = '';
+                document.querySelectorAll('.dia-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+            
+            aplicarFiltros();
+        }
+        
+        function aplicarFiltros() {
+            if (horariosDisponibles.length === 0) {
+                return;
+            }
+            
+            let resultado = [...horariosDisponibles];
+            
+            switch(filtroActivo) {
+                case 'semana-actual':
+                    const diasSemanaActual = generarDiasSemana(0)
+                        .filter(d => d.nombre !== 'Domingo')
+                        .map(d => d.fecha);
+                    resultado = resultado.filter(h => diasSemanaActual.includes(h.fecha));
+                    break;
+                    
+                case 'semana-siguiente':
+                    const diasSemanaSiguiente = generarDiasSemana(1)
+                        .filter(d => d.nombre !== 'Domingo')
+                        .map(d => d.fecha);
+                    resultado = resultado.filter(h => diasSemanaSiguiente.includes(h.fecha));
+                    break;
+                    
+                case 'dia-especifico':
+                    if (fechaFiltro) {
+                        resultado = resultado.filter(h => h.fecha === fechaFiltro);
+                    }
+                    break;
+            }
+            
+            horariosFiltrados = resultado;
+            elementos.contadorHorarios.textContent = resultado.length;
+            
+            actualizarMensajeDemanda(resultado.length);
+            mostrarHorariosFiltrados(resultado);
+        }
+        
+        function actualizarMensajeDemanda(cantidad) {
+            let mensaje = '';
+            
+            if (cantidad === 0) {
+                mensaje = '⚠️ Sin disponibilidad en este momento';
+            } else if (cantidad <= 3) {
+                mensaje = '🔥 Últimos horarios disponibles';
+            } else if (cantidad <= 6) {
+                mensaje = '⚡ Horarios disponibles - Reserva pronto';
+            } else {
+                mensaje = '📅 Mostrando horarios - Disponibilidad limitada';
+            }
+            
+            elementos.demandaText.textContent = mensaje;
+        }
+        
+        function toggleFechaGrupo(fecha) {
+            const grupoContenido = document.getElementById(`grupo-contenido-${fecha}`);
+            if (grupoContenido) {
+                if (fechaExpandidas.has(fecha)) {
+                    grupoContenido.classList.remove('expanded');
+                    fechaExpandidas.delete(fecha);
+                } else {
+                    grupoContenido.classList.add('expanded');
+                    fechaExpandidas.add(fecha);
+                }
+            }
+        }
+        
+        function mostrarHorariosFiltrados(horarios) {
+            if (horarios.length === 0) {
+                let mensaje = 'No hay horarios disponibles en este momento.';
+                let subMensaje = 'Intenta con otros filtros o vuelve más tarde.';
+                
+                if (filtroActivo === 'semana-actual') {
+                    mensaje = 'Horarios agotados para esta semana.';
+                    subMensaje = 'Consulta la próxima semana o prueba otros horarios.';
+                } else if (filtroActivo === 'semana-siguiente') {
+                    mensaje = 'Sin disponibilidad la próxima semana.';
+                    subMensaje = 'Los horarios se abren semanalmente.';
+                } else if (filtroActivo === 'dia-especifico' && fechaFiltro) {
+                    const fechaFormateada = obtenerFechaCorta(fechaFiltro);
+                    mensaje = `Sin disponibilidad para el ${fechaFormateada}.`;
+                    subMensaje = 'Este día está completo. Prueba con otra fecha.';
+                }
+                
+                elementos.horariosList.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #666;">
+                        <div style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;">📅</div>
+                        <p style="font-size: 1.2rem; margin-bottom: 10px;">${mensaje}</p>
+                        <p style="font-size: 0.9rem; color: #888;">${subMensaje}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const ahora = new Date();
+            
+            // Agrupar horarios por fecha
+            const horariosPorFecha = {};
+            horarios.forEach(horario => {
+                if (!horariosPorFecha[horario.fecha]) {
+                    horariosPorFecha[horario.fecha] = [];
+                }
+                horariosPorFecha[horario.fecha].push(horario);
+            });
+            
+            // Ordenar fechas
+            const fechasOrdenadas = Object.keys(horariosPorFecha).sort();
+            
+            let html = '';
+            
+            if (fechaFiltro && horariosPorFecha[fechaFiltro]) {
+                fechaExpandidas.clear();
+                fechaExpandidas.add(fechaFiltro);
+            }
+            
+            // Generar HTML para cada fecha
+            fechasOrdenadas.forEach((fecha, fechaIndex) => {
+                const fechaCorta = obtenerFechaCorta(fecha);
+                const diaNombre = obtenerDiaSemana(fecha);
+                const horariosFecha = horariosPorFecha[fecha];
+                
+                // Excluir domingos
+                if (diaNombre === 'Domingo') {
+                    return;
+                }
+                
+                const esSabado = diaNombre === 'Sábado';
+                
+                // Filtrar horarios según el día
+                const horariosFiltradosPorDia = horariosFecha.filter(h => {
+                    const hora = parseInt(h.hora.split(':')[0]);
+                    
+                    // Verificar si el horario ya pasó
+                    const horarioCompleto = new Date(fecha + 'T' + h.hora);
+                    const esHorarioPasado = horarioCompleto < ahora;
+                    
+                    if (esHorarioPasado) {
+                        h.esPasado = true;
+                    } else {
+                        h.esPasado = false;
+                    }
+                    
+                    if (esSabado) {
+                        // SÁBADOS: 10:00 a 15:00
+                        return hora >= 10 && hora <= 15;
+                    } else {
+                        // LUNES A VIERNES: 12:00 a 19:00
+                        return hora >= 12 && hora <= 19;
+                    }
+                });
+                
+                if (horariosFiltradosPorDia.length === 0) {
+                    return;
+                }
+                
+                const estaExpandida = fechaExpandidas.has(fecha);
+                
+                html += `
+                    <div class="fecha-grupo" style="margin-bottom: ${fechaIndex === fechasOrdenadas.length - 1 ? '0' : '25px'};">
+                        <div class="fecha-grupo-header" id="grupo-header-${fecha}" onclick="toggleFechaGrupo('${fecha}')">
+                            <span>${fechaCorta}</span>
+                            <span class="contador-horarios">
+                                ${horariosFiltradosPorDia.length} horario${horariosFiltradosPorDia.length > 1 ? 's' : ''}
+                                <i class="fas fa-chevron-down" style="margin-left: 5px; transition: transform 0.3s; transform: ${estaExpandida ? 'rotate(180deg)' : 'rotate(0deg)'}"></i>
+                            </span>
+                        </div>
+                        <div class="fecha-grupo-contenido" id="grupo-contenido-${fecha}" style="${estaExpandida ? 'max-height: 1000px;' : 'max-height: 0; padding: 0 15px;'}">
+                `;
+                
+                if (estaExpandida) {
+                    // Ordenar horarios por prioridad (los de tu script ya vienen ordenados)
+                    horariosFiltradosPorDia.sort((a, b) => {
+                        const horaA = parseInt(a.hora.split(':')[0]);
+                        const horaB = parseInt(b.hora.split(':')[0]);
+                        return horaA - horaB;
+                    });
+                    
+                    horariosFiltradosPorDia.forEach((horario, index) => {
+                        const horaNum = parseInt(horario.hora.split(':')[0]);
+                        const horarioId = horario.fecha + '_' + horario.hora.replace(':', '');
+                        
+                        let claseExtra = '';
+                        let tagEspecial = '';
+                        
+                        if (horario.esPasado) {
+                            // Horario pasado
+                            claseExtra = 'horario-pasado';
+                            tagEspecial = '<span class="demanda-tag" style="background: #888;">PASADO</span>';
+                            
+                            html += `
+                                <div class="horario-item ${claseExtra}" 
+                                     style="margin-bottom: ${index === horariosFiltradosPorDia.length - 1 ? '0' : '12px'};">
+                                    <div class="horario-info">
+                                        <div class="hora">
+                                            <i class="fas fa-clock"></i> ${horario.hora}
+                                            ${tagEspecial}
+                                        </div>
+                                    </div>
+                                    <button class="reservar-btn" disabled>
+                                        <i class="fas fa-times"></i> No disponible
+                                    </button>
+                                </div>
+                            `;
+                        } else {
+                            // Horario disponible
+                            if (esSabado) {
+                                // SÁBADOS
+                                if (horaNum >= 12 && horaNum <= 14) {
+                                    tagEspecial = '<span class="popular-tag">🏁 MAS SOLICITADO</span>';
+                                }
+                            } else {
+                                // LUNES A VIERNES
+                                const esAltaDemanda = horaNum >= 16 && horaNum <= 18;
+                                const esTarde = horaNum >= 14 && horaNum <= 19;
+                                
+                                if (esAltaDemanda) {
+                                    claseExtra = 'high-demand';
+                                    tagEspecial = '<span class="demanda-tag">🔥 MAS SOLICITADO</span>';
+                                } else if (esTarde) {
+                                    claseExtra = 'medium-demand';
+                                } else {
+                                    claseExtra = 'low-demand';
+                                }
+                            }
+                            
+                            html += `
+                                <div class="horario-item ${claseExtra}" 
+                                     style="margin-bottom: ${index === horariosFiltradosPorDia.length - 1 ? '0' : '12px'};">
+                                    <div class="horario-info">
+                                        <div class="hora ${claseExtra ? 'premium' : ''}">
+                                            <i class="fas fa-clock"></i> ${horario.hora}
+                                            ${tagEspecial}
+                                        </div>
+                                    </div>
+                                    <button class="reservar-btn" onclick="seleccionarHorarioPorId('${horarioId}')">
+                                        <i class="fas fa-bookmark"></i> Reservar
+                                    </button>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            elementos.horariosList.innerHTML = html;
+            
+            if (html === '') {
+                elementos.horariosList.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #666;">
+                        <div style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;">📅</div>
+                        <p style="font-size: 1.2rem; margin-bottom: 10px;">No hay horarios disponibles para los filtros seleccionados</p>
+                        <p style="font-size: 0.9rem; color: #888;">Prueba con otros filtros o consulta la próxima semana</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // ==================== FUNCIÓN CORREGIDA PARA CARGAR HORARIOS ====================
+        function cargarHorarios() {
+            // Generar el nombre del callback
+            const callbackName = 'horarios_callback_' + Math.round(100000 * Math.random());
+            
+            // IMPORTANTE: Definir la función ANTES de crear el script
+            window[callbackName] = function(res) {
+                if(res.success) {
+                    console.log("✅ Horarios recibidos:", res.data);
+                    horariosDisponibles = res.data || [];
+                    elementos.lastUpdate.textContent = new Date().toLocaleTimeString('es-MX');
+                    elementos.contadorHorarios.textContent = horariosDisponibles.length;
+                    
+                    mostrarDiasFiltro();
+                    aplicarFiltros();
+                } else {
+                    console.error("❌ Error al cargar horarios:", res.message);
+                    mostrarError('❌ No se pudieron cargar los horarios: ' + res.message);
+                    mostrarHorariosDeEjemplo();
+                }
+                
+                // Limpiar el script del DOM y la función global
+                delete window[callbackName];
+                const scriptElement = document.getElementById('jsonp-script');
+                if (scriptElement) scriptElement.remove();
+            };
+            
+            const s = document.createElement('script');
+            s.id = 'jsonp-script';
+            // Asegúrate de que SCRIPT_URL sea la de tu implementación de Google
+            s.src = `${SCRIPT_URL}?action=obtenerHorarios&callback=${callbackName}&nocache=${Date.now()}`;
+            
+            s.onerror = function() {
+                console.error("❌ Error al cargar el script de Google");
+                mostrarError('❌ Error de conexión con el servidor de horarios.');
+                mostrarHorariosDeEjemplo();
+                delete window[callbackName];
+            };
+            
+            document.body.appendChild(s);
+        }
+        
+        // ==================== FUNCIÓN CORREGIDA PARA ENVIAR RESERVA ====================
+        async function enviarReserva(event) {
+            event.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const tipoTerapia = tipoTerapiaSeleccionada;
+            const terapiaInfo = tiposTerapia[tipoTerapia];
+            
+            if (!nombre || !telefono || !horarioSeleccionado) {
+                mostrarError('❌ Por favor, completa todos los campos');
+                return;
+            }
+            
+            const nombrePartes = nombre.split(' ').filter(p => p.length > 0);
+            if (nombrePartes.length < 2) {
+                mostrarError('❌ Por favor ingresa tu nombre completo (al menos nombre y apellido)');
+                return;
+            }
+            
+            if (!/^[0-9]{10}$/.test(telefono)) {
+                mostrarError('❌ El teléfono debe tener exactamente 10 dígitos');
+                return;
+            }
+            
+            // Verificar que el horario no sea pasado
+            const ahora = new Date();
+            const horarioCompleto = new Date(horarioSeleccionado.fecha + 'T' + horarioSeleccionado.hora);
+            if (horarioCompleto < ahora) {
+                mostrarError('❌ Este horario ya ha pasado. Por favor, selecciona otro horario.');
+                return;
+            }
+            
+            elementos.submitBtn.disabled = true;
+            elementos.submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando reserva...';
+            
+            // Preparar datos para enviar
+            const datosReserva = {
+                nombre: nombre,
+                telefono: telefono,
+                tipoTerapia: tipoTerapia,
+                edad: terapiaInfo.edad,
+                precio: terapiaInfo.precio.toString(),
+                fecha: horarioSeleccionado.fecha,
+                hora: horarioSeleccionado.hora,
+                timestamp: new Date().toISOString()
+            };
+            
+            try {
+                // Usar JSONP para evitar problemas CORS
+                const cbReserva = 'res_' + Date.now();
+                
+                window[cbReserva] = function(res) {
+                    elementos.submitBtn.disabled = false;
+                    elementos.submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirmar Reserva';
+                    
+                    if(res.success) {
+                        const fechaFormateada = formatearFechaParaMostrar(horarioSeleccionado.fecha);
+                        const mensajeExito = `✅ Reserva confirmada para ${nombre} (${terapiaInfo.nombre}) el ${fechaFormateada} a las ${horarioSeleccionado.hora}`;
+                        mostrarMensaje(mensajeExito, 'success');
+                        
+                        // Abrir WhatsApp
+                        abrirWhatsApp(datosReserva, terapiaInfo, fechaFormateada);
+                        
+                        // Resetear formulario
+                        elementos.reservaForm.reset();
+                        elementos.fechaSeleccionada.value = '';
+                        elementos.horaSeleccionada.value = '';
+                        horarioSeleccionado = null;
+                        elementos.submitBtn.disabled = true;
+                        
+                        // Actualizar horarios después de reservar
+                        setTimeout(() => {
+                            cargarHorarios();
+                            mostrarMensaje('🔄 Horarios actualizados después de tu reserva.', 'success');
+                        }, 2000);
+                    } else {
+                        mostrarError('❌ ' + res.message);
+                    }
+                    
+                    // Limpiar
+                    delete window[cbReserva];
+                    const scriptElement = document.getElementById('reserva-script');
+                    if (scriptElement) scriptElement.remove();
+                };
+                
+                const p = new URLSearchParams({
+                    callback: cbReserva,
+                    nombre: datosReserva.nombre,
+                    telefono: datosReserva.telefono,
+                    fecha: datosReserva.fecha,
+                    hora: datosReserva.hora,
+                    tipoTerapia: datosReserva.tipoTerapia,
+                    precio: datosReserva.precio,
+                    edad: datosReserva.edad,
+                    timestamp: datosReserva.timestamp
+                });
+                
+                const s = document.createElement('script');
+                s.id = 'reserva-script';
+                s.src = `${SCRIPT_URL}?${p.toString()}`;
+                
+                s.onerror = function() {
+                    mostrarError('❌ Error de conexión. Por favor, inténtalo de nuevo.');
+                    elementos.submitBtn.disabled = false;
+                    elementos.submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirmar Reserva';
+                    delete window[cbReserva];
+                };
+                
+                document.body.appendChild(s);
+                
+            } catch (error) {
+                console.error('💥 Error en enviarReserva:', error);
+                mostrarError('❌ Error al enviar la reserva. Por favor, inténtalo de nuevo.');
+                elementos.submitBtn.disabled = false;
+                elementos.submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirmar Reserva';
+            }
+        }
+        
+// ==================== FUNCIÓN PARA ABRIR WHATSAPP ====================
+function abrirWhatsApp(datos, terapiaInfo, fechaFormateada) {
+    // Asegúrate de que horarioSeleccionado esté definido
+    // Si no, puedes obtenerlo de otra variable o parámetro
+    
+    const mensajeWhatsApp = `*REGISTRO DE NUEVA CITA*%0A%0A` +
+                    `Hola, acabo de agendar una cita a través de su sistema web.%0A%0A` +
+                    `*Mis datos para la cita:*%0A` +
+                    `*Nombre:* ${datos.nombre}%0A` +  // Cambiado: datos.nombre
+                    `*Teléfono:* ${datos.telefono}%0A` +  // Cambiado: datos.telefono
+                    `*Terapia solicitada:* ${terapiaInfo.nombre}%0A` +
+                    `*Inversión:* $${terapiaInfo.precio} MXN%0A` +
+                    `*Duración:* ${terapiaInfo.duracion}%0A` +
+                    `*Fecha:* ${fechaFormateada}%0A` +
+                    `*Hora:* ${horarioSeleccionado ? horarioSeleccionado.hora : 'Hora no especificada'}%0A%0A` +  // Con validación
+                    `*Por favor confirmen:*%0A` +
+                    `• Si este horario está disponible%0A` +
+                    `• Si necesitan algún dato adicional de mi parte%0A%0A` +
+                    `Espero su confirmación. ¡Gracias!`;
+    
+    const url = `https://wa.me/526694462216?text=${mensajeWhatsApp}`;
+    window.open(url, '_blank');
+}
+
+        
+        function mostrarHorariosDeEjemplo() {
+            const hoy = new Date();
+            const horariosEjemplo = [];
+            
+            // Generar para los próximos 14 días, excluyendo domingos
+            for (let i = 0; i < 14; i++) {
+                const fecha = new Date(hoy);
+                fecha.setDate(hoy.getDate() + i);
+                
+                // Excluir domingos (día 0)
+                if (fecha.getDay() === 0) {
+                    continue;
+                }
+                
+                const fechaStr = fecha.toISOString().split('T')[0];
+                const diaSemana = fecha.getDay();
+                const esSabado = diaSemana === 6;
+                
+                if (esSabado) {
+                    // Sábados: 10am-3pm
+                    for (let hora = 10; hora <= 15; hora++) {
+                        const horaStr = `${hora.toString().padStart(2, '0')}:00`;
+                        
+                        horariosEjemplo.push({
+                            fecha: fechaStr,
+                            hora: horaStr,
+                            prioridad: hora >= 12 && hora <= 14 ? 3 : 1,
+                            raw: `${fechaStr} ${horaStr}`
+                        });
+                    }
+                } else {
+                    // Lunes a Viernes: 12pm-7pm
+                    for (let hora = 12; hora <= 19; hora++) {
+                        const horaStr = `${hora.toString().padStart(2, '0')}:00`;
+                        let prioridad = 1;
+                        if (hora >= 16 && hora <= 18) prioridad = 3;
+                        else if (hora >= 14 && hora <= 19) prioridad = 2;
+                        
+                        horariosEjemplo.push({
+                            fecha: fechaStr,
+                            hora: horaStr,
+                            prioridad: prioridad,
+                            raw: `${fechaStr} ${horaStr}`
+                        });
+                    }
+                }
+            }
+            
+            horariosDisponibles = horariosEjemplo;
+            elementos.contadorHorarios.textContent = horariosDisponibles.length;
+            mostrarDiasFiltro();
+            aplicarFiltros();
+            
+            mostrarMensaje('⚠️ Mostrando datos de ejemplo. La reserva funcionará normalmente.', 'error');
+        }
+        
+        function mostrarMensaje(mensaje, tipo) {
+            elementos.statusMessage.textContent = mensaje;
+            elementos.statusMessage.className = 'status-message ' + tipo;
+            elementos.statusMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                elementos.statusMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        function mostrarError(mensaje) {
+            mostrarMensaje(mensaje, 'error');
+        }
+        
+        function scrollToBooking() {
+            const bookingSection = document.getElementById('booking-section');
+            bookingSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                const header = section.querySelector('.accordion-header');
+                if (!header.classList.contains('active')) {
+                    toggleAccordion(header);
+                }
+            }
+        }
+        
+        // ==================== INICIALIZACIÓN ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Configurar eventos de sincronización
+            elementos.infoSelect.addEventListener('change', () => sincronizarTerapia('infoSelect'));
+            elementos.tipoTerapiaSelect.addEventListener('change', () => sincronizarTerapia('tipo-terapia-select'));
+            
+            // Inicializar con terapia adulto
+            sincronizarTerapia('tipo-terapia-select');
+            
+            // Configurar botones de filtro
+            elementos.filtroBtns.forEach(btn => {
+                btn.addEventListener('click', () => cambiarFiltro(btn.dataset.tipo));
+            });
+            
+            // Configurar formulario
+            elementos.reservaForm.addEventListener('submit', enviarReserva);
+            
+            // Configurar botón de actualización
+            elementos.refreshBtn.addEventListener('click', () => {
+                elementos.refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+                elementos.refreshBtn.disabled = true;
+                
+                cargarHorarios();
+                
+                setTimeout(() => {
+                    elementos.refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Actualizar Disponibilidad';
+                    elementos.refreshBtn.disabled = false;
+                    mostrarMensaje('✅ Horarios actualizados exitosamente.', 'success');
+                }, 1000);
+            });
+            
+            // Validar teléfono
+            elementos.telefonoInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            
+            // Cargar horarios inicialmente
+            cargarHorarios();
+        });
+        
+        // ==================== EXPORTAR FUNCIONES AL CONTEXTO GLOBAL ====================
+        window.seleccionarHorarioPorId = seleccionarHorarioPorId;
+        window.filtrarPorDia = filtrarPorDia;
+        window.cambiarFiltro = cambiarFiltro;
+        window.aplicarFiltros = aplicarFiltros;
+        window.enviarReserva = enviarReserva;
+        window.cargarHorarios = cargarHorarios;
+        window.toggleFechaGrupo = toggleFechaGrupo;
+        window.scrollToSection = scrollToSection;
+        window.toggleAccordion = toggleAccordion;
+        window.sincronizarTerapia = sincronizarTerapia;
+    </script>
+</body>
+</html>
